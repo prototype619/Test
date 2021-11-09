@@ -5,14 +5,15 @@ User has the following properties
 * api_token: (string)
 * default_wid: default workspace id (integer)
 * email: (string)
+* fullname: (string)
 * jquery_timeofday_format: (string)
-* jquery_date_format:(string)
+* jquery_date_format: (string)
 * timeofday_format: (string)
 * date_format: (string)
 * store_start_and_stop_time: whether start and stop time are saved on time entry (boolean)
 * beginning_of_week: (integer 0-6, Sunday=0)
 * language: user's language (string)
-* image_url: url with the user's profile picture(string)
+* image_url: url with the user's profile picture (string)
 * sidebar_piechart: should a piechart be shown on the sidebar (boolean)
 * at: timestamp of last changes
 * new_blog_post: an object with toggl blog post title and link
@@ -23,7 +24,7 @@ User has the following properties
 * timezone: (string) timezone user has set on the "My profile" page ( [IANA TZ timezones](http://en.wikipedia.org/wiki/List_of_tz_database_time_zones) )
 
 ## Get current user data ##
-`GET https://www.toggl.com/api/v8/me`
+`GET https://api.track.toggl.com/api/v8/me`
 
 By default the request responds with user properties.
 To get all the workspaces, clients, projects, tasks, time entries and tags which the user can see, add the parameter `with_related_data=true`
@@ -32,7 +33,7 @@ If you want to retrieve objects which have changed after certain time, add `sinc
 Example request *without* related data
 
 ```shell
-curl -v -u 1971800d4d82861d8f2c1651fea4d212:api_token -X GET https://www.toggl.com/api/v8/me
+curl -v -u 1971800d4d82861d8f2c1651fea4d212:api_token -X GET https://api.track.toggl.com/api/v8/me
 ```
 
 Successful response
@@ -69,7 +70,7 @@ Successful response
 Example request with all the connected data
 
 ```shell
-curl -v -u 1971800d4d82861d8f2c1651fea4d212:api_token -X GET https://www.toggl.com/api/v8/me?with_related_data=true
+curl -v -u 1971800d4d82861d8f2c1651fea4d212:api_token -X GET https://api.track.toggl.com/api/v8/me?with_related_data=true
 ```
 
 Successful response
@@ -122,7 +123,7 @@ Successful response
 				"name":"Important project",
 				"billable":false,
 				"active":false,
-				"at":"2013-03-06T09:13:31+00:00"
+				"at":"2013-03-06T09:13:31+00:00",
 				"color":"5"
 			}
 		],
@@ -161,9 +162,9 @@ Successful response
 }
 ```
 
-##Update user data##
+## Update user data ##
 
-`PUT https://www.toggl.com/api/v8/me`
+`PUT https://api.track.toggl.com/api/v8/me`
 
 You can update the following user fields:
 * fullname: string
@@ -189,7 +190,7 @@ Example request
 curl -v -u 1971800d4d82861d8f2c1651fea4d212:api_token \
 	-H "Content-Type: application/json" \
 	-d '{"user":{"fullname":"John Smith"}}' \
-	-X PUT https://www.toggl.com/api/v8/me
+	-X PUT https://api.track.toggl.com/api/v8/me
 ```
 
 Successful response
@@ -228,14 +229,14 @@ Successful response
 }
 ```
 
-##Reset API token##
-`POST https://www.toggl.com/api/v8/reset_token`
+## Reset API token ##
+`POST https://api.track.toggl.com/api/v8/reset_token`
 
 Example request
 
 ```shell
 curl -v -u 1971800d4d82861d8f2c1651fea4d212:api_token \
-	-X POST https://www.toggl.com/api/v8/reset_token
+	-X POST https://api.track.toggl.com/api/v8/reset_token
 ```
 
 Successful response is a string with the new API token: 
@@ -244,11 +245,11 @@ Successful response is a string with the new API token:
 ```
 
 
-##Get workspace users##
+## Get workspace users ##
 
 Retrieving workspace users is documented [here](workspaces.md#get-workspace-users).
 
-##Sign up new user##
+## Sign up new user ##
 
 To create a user you must provide these parameters for the user:
 * email: a valid email for the user whose account is created (string, required)
@@ -256,13 +257,13 @@ To create a user you must provide these parameters for the user:
 * timezone: for example "Etc/UTC" (string, required)
 * created_with: in free form, name of the app that signed the user app (string, required)
 
-`POST https://www.toggl.com/api/v8/signups`
+`POST https://api.track.toggl.com/api/v8/signups`
 
 Example request
 ```shell
 curl -H "Content-Type: application/json" \
 -d '{"user":{"email":"test.user@toggl.com","password":"StrongPassword"}}' \
--X POST https://www.toggl.com/api/v8/signups
+-X POST https://api.track.toggl.com/api/v8/signups
 ```
 
 Successful response includes created user's data and API token
@@ -270,7 +271,6 @@ Successful response includes created user's data and API token
 {
 	"data":{
 		"id":599978901,
-		"api_token":"808lolae4eab897cce9729a53642124effe",
 		"default_wid":983493,
 		"email":"test.user@toggl.com",
 		"fullname":"Test User",

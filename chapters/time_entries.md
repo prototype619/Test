@@ -1,7 +1,7 @@
 Time Entries
 ====================
 
-The requests are scoped with the user whose API token is used. Only his/her time entries are updated, retrieved and created.
+The requests are scoped with the user whose API token is used. Only his/her time entries and time entries in a workspace where the user is an admin are updated, retrieved and created.
 
 Time entry has the following properties
 * description: (string, strongly suggested to be used)
@@ -17,9 +17,9 @@ Time entry has the following properties
 * duronly: should Toggl show the start and stop time of this time entry? (boolean, not required)
 * at: timestamp that is sent in the response, indicates the time item was last updated
 
-##Create a time entry##
+## Create a time entry
 
-`POST https://www.toggl.com/api/v8/time_entries`
+`POST https://api.track.toggl.com/api/v8/time_entries`
 
 Example request
 
@@ -27,7 +27,7 @@ Example request
 curl -v -u 1971800d4d82861d8f2c1651fea4d212:api_token \
 	-H "Content-Type: application/json" \
 	-d '{"time_entry":{"description":"Meeting with possible clients","tags":["billed"],"duration":1200,"start":"2013-03-05T07:58:58.000Z","pid":123,"created_with":"curl"}}' \
-	-X POST https://www.toggl.com/api/v8/time_entries
+	-X POST https://api.track.toggl.com/api/v8/time_entries
 
 ```
 
@@ -48,9 +48,9 @@ Successful response
 }
 ```
 
-##Start a time entry##
+## Start a time entry
 
-`POST https://www.toggl.com/api/v8/time_entries/start`
+`POST https://api.track.toggl.com/api/v8/time_entries/start`
 
 Example request
 
@@ -58,7 +58,7 @@ Example request
 curl -v -u 1971800d4d82861d8f2c1651fea4d212:api_token \
 	-H "Content-Type: application/json" \
 	-d '{"time_entry":{"description":"Meeting with possible clients","tags":["billed"],"pid":123,"created_with":"curl"}}' \
-	-X POST https://www.toggl.com/api/v8/time_entries/start
+	-X POST https://api.track.toggl.com/api/v8/time_entries/start
 
 ```
 
@@ -79,15 +79,15 @@ Successful response
 }
 ```
 
-##Stop a time entry##
+## Stop a time entry
 
-`PUT https://www.toggl.com/api/v8/time_entries/{time_entry_id}/stop`
+`PUT https://api.track.toggl.com/api/v8/time_entries/{time_entry_id}/stop`
 
 Example request
 ```shell
 curl -v -u 1971800d4d82861d8f2c1651fea4d212:api_token \
 	-H "Content-Type: application/json" \
-	-X PUT https://www.toggl.com/api/v8/time_entries/436694100/stop
+	-X PUT https://api.track.toggl.com/api/v8/time_entries/436694100/stop
 ```
 
 Successful response
@@ -107,15 +107,15 @@ Successful response
 }
 ```
 
-##Get time entry details##
+## Get time entry details
 
-`GET https://www.toggl.com/api/v8/time_entries/{time_entry_id}`
+`GET https://api.track.toggl.com/api/v8/time_entries/{time_entry_id}`
 
 Example request:
 
 ```shell
 curl -v -u 1971800d4d82861d8f2c1651fea4d212:api_token \
--X GET https://www.toggl.com/api/v8/time_entries/436694100
+-X GET https://api.track.toggl.com/api/v8/time_entries/436694100
 ```
 
 Successful response
@@ -138,15 +138,15 @@ Successful response
 ```
 
 
-##Get running time entry##
+## Get running time entry
 
-`GET https://www.toggl.com/api/v8/time_entries/current`
+`GET https://api.track.toggl.com/api/v8/time_entries/current`
 
 Example request:
 
 ```shell
 curl -v -u 1971800d4d82861d8f2c1651fea4d212:api_token \
--X GET https://www.toggl.com/api/v8/time_entries/current
+-X GET https://api.track.toggl.com/api/v8/time_entries/current
 ```
 
 Successful response
@@ -166,8 +166,8 @@ Successful response
 ```
 
 
-##Update a time entry##
-`PUT https://www.toggl.com/api/v8/time_entries/{time_entry_id}`
+## Update a time entry
+`PUT https://api.track.toggl.com/api/v8/time_entries/{time_entry_id}`
 
 Example request
 
@@ -175,7 +175,7 @@ Example request
 curl -v -u 1971800d4d82861d8f2c1651fea4d212:api_token \
 	-H "Content-Type: application/json" \
 	-d '{"time_entry":{"description":"Meeting with possible clients","tags":[""],"duration":1240,"start":"2013-03-05T07:58:58.000Z","stop":"2013-03-05T08:58:58.000Z","duronly":true,"pid":123,"billable":true}}' \
-	-X PUT https://www.toggl.com/api/v8/time_entries/436694100
+	-X PUT https://api.track.toggl.com/api/v8/time_entries/436694100
 
 ```
 
@@ -198,23 +198,23 @@ Successful response
 }
 ```
 
-##Delete a time entry##
+## Delete a time entry
 
 
-`DELETE https://www.toggl.com/api/v8/time_entries/{time_entry_id}`
+`DELETE https://api.track.toggl.com/api/v8/time_entries/{time_entry_id}`
 
 Example request
 ```shell
 curl -v -u 1971800d4d82861d8f2c1651fea4d212:api_token \
-	-X DELETE https://www.toggl.com/api/v8/time_entries/1239455
+	-X DELETE https://api.track.toggl.com/api/v8/time_entries/1239455
 ```
 
 Successful request will return `200 OK`
 
 
-##Get time entries started in a specific time range##
+## Get time entries started in a specific time range
 
-`GET https://www.toggl.com/api/v8/time_entries`
+`GET https://api.track.toggl.com/api/v8/time_entries`
 
 With `start_date` and `end_date` parameters you can specify the date range of the time entries returned. If `start_date` and `end_date` are not specified, time entries started during the last 9 days are returned. **The limit of returned time entries is 1000.** So only the first 1000 found time entries are returned. To get all time entries for a specific time span, you should consider using the [detailed report](../reports/detailed.md) request, which returns paginated results, but enables you to get all the asked time entries with multiple requests.
 
@@ -224,7 +224,7 @@ Example request with start date 2013-03-10T15:42:46+02:00 and end_date 2013-03-1
 
 ```shell
 curl -v -u 1971800d4d82861d8f2c1651fea4d212:api_token \
-	-X GET "https://www.toggl.com/api/v8/time_entries?start_date=2013-03-10T15%3A42%3A46%2B02%3A00&end_date=2013-03-12T15%3A42%3A46%2B02%3A00"
+	-X GET "https://api.track.toggl.com/api/v8/time_entries?start_date=2013-03-10T15%3A42%3A46%2B02%3A00&end_date=2013-03-12T15%3A42%3A46%2B02%3A00"
 ```
 
 Successful response
@@ -257,7 +257,7 @@ Successful response
 
 ## Bulk update time entries tags ##
 
-`PUT https://www.toggl.com/api/v8/time_entries/{time_entry_ids_separated_by_a_comma}`
+`PUT https://api.track.toggl.com/api/v8/time_entries/{time_entry_ids_separated_by_a_comma}`
 
 You can mass assign and remove tags from time entries. Just instead of one `time_entry_id`, you need to send all the time entry ids, which you want to update, separated by a comma in the request url.
 The request is similar to regular time entry update.
@@ -274,7 +274,7 @@ Example request
 curl -v -u 1971800d4d82861d8f2c1651fea4d212:api_token \
 	-H "Content-Type: application/json" \
 	-d '{"time_entry":{"tags":["billed","productive"], "tag_action": "add"}}' \
-	-X PUT https://www.toggl.com/api/v8/time_entries/436694100,436694101
+	-X PUT https://api.track.toggl.com/api/v8/time_entries/436694100,436694101
 ```
 
 Successful response

@@ -1,8 +1,8 @@
-#Weekly report#
+# Weekly report
 
 The weekly report gives aggregated 7 day durations or earnings grouped by users and projects.
 
-##Request##
+## Request
 
 The weekly report accepts all of the [standard request parameters](../reports.md#request-parameters), with the exception of the `until` parameter.  Instead, 7 days starting from `since` are shown.
 
@@ -10,12 +10,12 @@ Additional request parameters for this report are:
 * `grouping`: `users`/`projects`, default projects. If one grouping is selected, the other acts as subgrouping.
 * `calculate`: `time`/`earnings`, default time
 
-##Response##
+## Response
 
-The repsonse will include the [standard response parameters](../reports.md#successful-response), as well as:
+The response will include the [standard response parameters](../reports.md#successful-response), as well as:
 * `week_totals`: array of total amounts/hours for every day (null if there's no work on a certain day)
 
-###Data array###
+### Data array
 
 Grouping is `projects` the main grouping looks like this
 * title: object containing project and client name
@@ -87,11 +87,11 @@ If `calculate=earnings`, it is an array of objects with currency string and the 
   ]
 ```
 
-##Example##
+## Example
 
 Example request
 ```shell
-curl -v -u 1971800d4d82861d8f2c1651fea4d212:api_token -X GET "https://toggl.com/reports/api/v2/weekly?workspace_id=123&since=2013-05-19&until=2013-05-20&user_agent=api_test"
+curl -v -u 1971800d4d82861d8f2c1651fea4d212:api_token -X GET "https://api.track.toggl.com/reports/api/v2/weekly?workspace_id=123&since=2013-05-19&until=2013-05-20&user_agent=api_test"
 ```
 
 Successful response
@@ -148,7 +148,7 @@ require 'JSON'
 wsid = # your workspace id
 api_token = #your api token
 
-uri = URI("https://toggl.com/reports/api/v2/weekly?workspace_id=#{wsid}&since=2014-03-01&until=2014-03-05&user_agent=api_example_test")
+uri = URI("https://api.track.toggl.com/reports/api/v2/weekly?workspace_id=#{wsid}&since=2014-03-01&until=2014-03-05&user_agent=api_example_test")
 
 req = Net::HTTP::Get.new(uri)
 req.basic_auth api_token, 'api_token'

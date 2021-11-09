@@ -1,8 +1,8 @@
-#Project dashboard#
+# Project dashboard
 
-[Project dashboard](http://support.toggl.com/project-dashboard/) returns at-a glance information for a single project. This feature is only available with Toggl pro.
+[Project dashboard](https://support.toggl.com/en/articles/3167701-project-dashboard) returns at-a glance information for a single project. This feature is only available with paid Toggl plans.
 
-##Request##
+## Request
 
 `GET /reports/api/v2/project`
  
@@ -19,7 +19,7 @@ Parameters are:
 * `order_desc` string:  on/off, `on` for descending and `off` for ascending 
 order
 
-##Response##
+## Response
 
 Project dashboard response has following strucure: ([json schema]
 (project_dashboard_schema.json))
@@ -65,11 +65,11 @@ Project dashboard response has following strucure: ([json schema]
 * `tasks_page` is array holding all tasks of given project, one page 
  at a time
 
-##Example##
+## Example
  
 request:
 ```shell
-curl -u my-secret-toggl-api-token:api_token -X GET "https://www.toggl.com/reports/api/v2/project/?page=1&user_agent=devteam@example.com&workspace_id=1&project_id=2"
+curl -u my-secret-toggl-api-token:api_token -X GET "https://api.track.toggl.com/reports/api/v2/project/?page=1&user_agent=devteam@example.com&workspace_id=1&project_id=2"
 ```
 
 response (formatted for readability):

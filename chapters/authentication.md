@@ -13,11 +13,11 @@ For HTTP Basic Auth you have to add the Authorization header with the request. T
 
 If authentication fails, HTTP status code 403 is returned.
 
-## HTTP Basic Auth with e-mail and password ##
+## HTTP Basic Auth with e-mail and password
 
 Example request ([See also chapter about getting detailed user data](users.md))
 ```shell
-curl -v -u john.doe@gmail.com:secret -X GET https://www.toggl.com/api/v8/me
+curl -v -u john.doe@gmail.com:secret -X GET https://api.track.toggl.com/api/v8/me
 
 ```
 
@@ -83,12 +83,12 @@ Response
 
 ```
 
-##HTTP Basic Auth with API token##
+## HTTP Basic Auth with API token
 When using Basic Auth and API token, use the API token as username and string "api_token" as password.
 
 Example request
 ```shell
-curl -v -u 1971800d4d82861d8f2c1651fea4d212:api_token -X GET https://www.toggl.com/api/v8/me
+curl -v -u 1971800d4d82861d8f2c1651fea4d212:api_token -X GET https://api.track.toggl.com/api/v8/me
 ```
 
 Response
@@ -124,22 +124,22 @@ Response
 
 ```
 
-## Authentication with a session cookie ##
+## Authentication with a session cookie
 
-`POST https://www.toggl.com/api/v8/sessions`
+`POST https://api.track.toggl.com/api/v8/sessions`
 
-It's possible to create a session. The session creation request sets a cookie in the response header `toggl_api_session_new`, which you can use for authentication in all the API requests. The cookie expires in 24 hours.
+It's possible to create a session. The session creation request sets a cookie in the response header `__Host-timer-session`, which you can use for authentication in all the API requests.
 
 Example request
 
 ```shell
-curl -v -u 1971800d4d82861d8f2c1651fea4d212:api_token -X POST https://www.toggl.com/api/v8/sessions
+curl --data="" -v -u 1971800d4d82861d8f2c1651fea4d212:api_token -X POST https://api.track.toggl.com/api/v8/sessions
 ```
 
 Successful response header includes the cookie
 
 ```shell
-< Set-Cookie: toggl_api_session_new=MTM2MzA4MJa8jA3OHxEdi1CQkFFQ180SUFBUkFCRUFBQVlQLUNBQUVHYzNSeWFXNW5EQXdBQ25ObGMzTnBiMjVmYVdRR2MzUnlhVzVuREQ0QVBIUnZaMmRzTFdGd2FTMXpaWE56YVc5dUxUSXRaalU1WmpaalpEUTVOV1ZsTVRoaE1UaGhaalpqWkRkbU5XWTJNV0psWVRnd09EWmlPVEV3WkE9PXweAkG7kI6NBG-iqvhNn1MSDhkz2Pz_UYTzdBvZjCaA==; Path=/; Expires=Wed, 13 Mar 2013 09:54:38 UTC; Max-Age=86400; HttpOnly
+< Set-Cookie: __Host-timer-session=MTM2MzA4MJa8jA3OHxEdi1CQkFFQ180SUFBUkFCRUFBQVlQLUNBQUVHYzNSeWFXNW5EQXdBQ25ObGMzTnBiMjVmYVdRR2MzUnlhVzVuREQ0QVBIUnZaMmRzTFdGd2FTMXpaWE56YVc5dUxUSXRaalU1WmpaalpEUTVOV1ZsTVRoaE1UaGhaalpqWkRkbU5XWTJNV0psWVRnd09EWmlPVEV3WkE9PXweAkG7kI6NBG-iqvhNn1MSDhkz2Pz_UYTzdBvZjCaA==; Path=/; HttpOnly; Secure; SameSite=Lax
 ```
 And body contains user's data
 
@@ -177,12 +177,12 @@ And body contains user's data
 
 Destroy the session manually by sending an according request to the API.
 
-`DELETE https://www.toggl.com/api/v8/sessions`
+`DELETE https://api.track.toggl.com/api/v8/sessions`
 
 Example request
 
 ```shell
-curl -v --cookie toggl_api_session_new=MTM2MzA4MJa8jA3OHxEdi1CQkFFQ180SUFBUkFCRUFBQVlQLUNBQUVHYzNSeWFXNW5EQXdBQ25ObGMzTnBiMjVmYVdRR2MzUnlhVzVuREQ0QVBIUnZaMmRzTFdGd2FTMXpaWE56YVc5dUxUSXRaalU1WmpaalpEUTVOV1ZsTVRoaE1UaGhaalpqWkRkbU5XWTJNV0psWVRnd09EWmlPVEV3WkE9PXweAkG7kI6NBG-iqvhNn1MSDhkz2Pz_UYTzdBvZjCaA== -X DELETE https://www.toggl.com/api/v8/sessions
+curl -v --cookie __Host-timer-session=MTM2MzA4MJa8jA3OHxEdi1CQkFFQ180SUFBUkFCRUFBQVlQLUNBQUVHYzNSeWFXNW5EQXdBQ25ObGMzTnBiMjVmYVdRR2MzUnlhVzVuREQ0QVBIUnZaMmRzTFdGd2FTMXpaWE56YVc5dUxUSXRaalU1WmpaalpEUTVOV1ZsTVRoaE1UaGhaalpqWkRkbU5XWTJNV0psWVRnd09EWmlPVEV3WkE9PXweAkG7kI6NBG-iqvhNn1MSDhkz2Pz_UYTzdBvZjCaA== -X DELETE https://api.track.toggl.com/api/v8/sessions
 ```
 
 Successful request will return `200 OK`.

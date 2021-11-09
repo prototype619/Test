@@ -10,7 +10,7 @@ Project has the following properties
 * template: whether the project can be used as a template (boolean, not required)
 * template_id: id of the template project used on current project's creation
 * billable: whether the project is billable or not (boolean, default true, available only for pro workspaces)
-* auto_estimates: whether the estimated hours is calculated based on task estimations or is fixed manually (boolean, default false, not required, premium functionality)
+* auto_estimates: whether the estimated hours are automatically calculated based on task estimations or manually fixed based on the value of 'estimated_hours' (boolean, default false, not required, premium functionality)
 * estimated_hours: if auto_estimates is true then the sum of task estimations is returned, otherwise user inserted hours (integer, not required, premium functionality)
 * at: timestamp that is sent in the response for PUT, indicates the time task was last updated (read-only)
 * color: id of the color selected for the project
@@ -18,9 +18,9 @@ Project has the following properties
 * created_at: timestamp indicating when the project was created (UTC time), read-only
 
 
-##Create project##
+## Create project
 
-`POST https://www.toggl.com/api/v8/projects`
+`POST https://api.track.toggl.com/api/v8/projects`
 
 Example request
 
@@ -28,7 +28,7 @@ Example request
 curl -v -u 1971800d4d82861d8f2c1651fea4d212:api_token \
 	-H "Content-Type: application/json" \
 	-d '{"project":{"name":"An awesome project","wid":777,"template_id":10237,"is_private":true,"cid":123397}}' \
-	-X POST https://www.toggl.com/api/v8/projects
+	-X POST https://api.track.toggl.com/api/v8/projects
 ```
 
 Successful response
@@ -49,15 +49,15 @@ Successful response
 }
 ```
 
-##Get project data##
+## Get project data
 
-`GET https://www.toggl.com/api/v8/projects/{project_id}`
+`GET https://api.track.toggl.com/api/v8/projects/{project_id}`
 
 Example request
 
 ```shell
 curl -v -u 1971800d4d82861d8f2c1651fea4d212:api_token \
-	-X GET https://www.toggl.com/api/v8/projects/193838628
+	-X GET https://api.track.toggl.com/api/v8/projects/193838628
 
 ```
 
@@ -79,9 +79,9 @@ Successful response
 }
 ```
 
-##Update project data##
+## Update project data
 
-`PUT https://www.toggl.com/api/v8/projects/{project_id}`
+`PUT https://api.track.toggl.com/api/v8/projects/{project_id}`
 
 Example request
 
@@ -89,7 +89,7 @@ Example request
 curl -v -u 1971800d4d82861d8f2c1651fea4d212:api_token \
 	-H "Content-Type: application/json" \
 	-d '{"project":{"name":"Changed the name","is_private":false,"cid":123398, "color": "6"}}' \
-	-X PUT https://www.toggl.com/api/v8/projects/193838628
+	-X PUT https://api.track.toggl.com/api/v8/projects/193838628
 ```
 
 
@@ -110,26 +110,26 @@ Successful response
 }
 ```
 
-##Delete a project##
+## Delete a project
 
-`DELETE https://www.toggl.com/api/v8/projects/{project_id}`
+`DELETE https://api.track.toggl.com/api/v8/projects/{project_id}`
 
 Example request
 ```shell
 curl -v -u 1971800d4d82861d8f2c1651fea4d212:api_token \
-	-X DELETE https://www.toggl.com/api/v8/projects/4692190
+	-X DELETE https://api.track.toggl.com/api/v8/projects/4692190
 ```
 
-##Get project users##
+## Get project users
 
-`GET https://www.toggl.com/api/v8/projects/{project_id}/project_users`
+`GET https://api.track.toggl.com/api/v8/projects/{project_id}/project_users`
 Read more about project user fields from [here](project_users.md).
 
 Example request
 
 ```shell
 curl -v -u 1971800d4d82861d8f2c1651fea4d212:api_token \
-	-X GET https://www.toggl.com/api/v8/projects/193838628/project_users
+	-X GET https://api.track.toggl.com/api/v8/projects/193838628/project_users
 
 ```
 
@@ -155,16 +155,17 @@ Successful response is an array of the project's users
 ]
 ```
 
-##Get project tasks##
+## Get project tasks
+Available for Starter, Premium and Enterprise workspaces
 
-`GET https://www.toggl.com/api/v8/projects/{project_id}/tasks`
+`GET https://api.track.toggl.com/api/v8/projects/{project_id}/tasks`
 Read more about task fields from [here](tasks.md).
 
 Example request
 
 ```shell
 curl -v -u 1971800d4d82861d8f2c1651fea4d212:api_token \
-	-X GET https://www.toggl.com/api/v8/projects/777/tasks
+	-X GET https://api.track.toggl.com/api/v8/projects/777/tasks
 
 ```
 
@@ -191,20 +192,20 @@ Successful response is an array of the project's tasks
 ]
 ```
 
-##Get workspace projects##
+## Get workspace projects
 
 Retrieving workspace projects is documented [here](workspaces.md#get-workspace-projects).
 
 
-##Mass Actions##
+## Mass Actions
 
-###Delete multiple projects###
+### Delete multiple projects
 
 By supplying multiple projectuser ids, you can mass delete projects.
-`DELETE https://www.toggl.com/api/v8/projects/{project_ids}`
+`DELETE https://api.track.toggl.com/api/v8/projects/{project_ids}`
 
 Example request
 ```shell
 curl -v -u 1971800d4d82861d8f2c1651fea4d212:api_token \
-	-X DELETE https://www.toggl.com/api/v8/projects/4692190,4692192,4692193
+	-X DELETE https://api.track.toggl.com/api/v8/projects/4692190,4692192,4692193
 ```

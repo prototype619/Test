@@ -6,7 +6,7 @@ Dashboard request returns two objects:
 * Activity
 * Most active user
 
-The activity object holds the data of 10 latest actions in the workspace.
+The activity object holds the data of 20 latest actions in the workspace.
 Activity object has the following properties
 * user_id: user ID
 * project_id: project ID (ID is 0 if time entry doesn't have project connected to it)
@@ -20,14 +20,14 @@ Most active user object has the following properties
 * user_id: user ID
 * duration: Sum of time entry durations that have been created during last 7 days
 
-##Get Dashboard data##
+## Get Dashboard data
 
-`GET https://www.toggl.com/api/v8/dashboard/{workspace_id}`
+`GET https://api.track.toggl.com/api/v8/dashboard/{workspace_id}`
 
 Example request
 ```shell
 curl -v -u 1971800d4d82861d8f2c1651fea4d212:api_token \
--X GET https://www.toggl.com/api/v8/dashboard/3134975
+-X GET https://api.track.toggl.com/api/v8/dashboard/3134975
 ```
 
 Successful response

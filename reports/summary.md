@@ -1,14 +1,14 @@
-#Summary report#
+# Summary report
 
 Summary report returns the aggregated time entries data.
 
-##Request##
+## Request
 
 In addition to the [standard request parameters](../reports.md#request-parameters), summaries accept the following additional parameters:
 * `grouping`
 * `subgrouping`
-* `subgrouping_ids` (boolean) - whether returned items will contain 'ids' key containing coma separated group item ID values
-* `grouped_time_entry_ids` (boolean) - whether returned items will contain 'time_entry_ids' key containing coma separated time entries ID values for given item
+* `subgrouping_ids` (boolean) - whether returned items will contain 'ids' key containing comma separated group item ID values
+* `grouped_time_entry_ids` (boolean) - whether returned items will contain 'time_entry_ids' key containing comma separated time entries ID values for given item
 
 Use the grouping and subgrouping params to organize the data as needed. By default `grouping:projects` and `subgrouping:time_entries`
 
@@ -28,11 +28,11 @@ Following groupings with subgroupings are available in the summary report
   * projects
   * clients
 
-##Response##
+## Response
 
-The repsonse will include the [standard response parameters](../reports.md#successful-response).
+The response will include the [standard response parameters](../reports.md#successful-response).
 
-###Data array###
+### Data array
 
 General structure of the item in the data array
 * id: the id of the grouping object
@@ -70,14 +70,14 @@ General structure of the item in the data array
   }
 ```
 
-##Project colors##
+## Project colors
 When grouped by project the title part of the return will contain color and color_hex fields. First one contains the color id (returned also by APIv8), second one will return the corresponding HEX value. (Please note: color return is a subject of change).
 
-##Example##
+## Example
 
 Example request
 ```shell
-curl -v -u 1971800d4d82861d8f2c1651fea4d212:api_token -X GET "https://toggl.com/reports/api/v2/summary?workspace_id=123&since=2013-05-19&until=2013-05-20&user_agent=api_test"
+curl -v -u 1971800d4d82861d8f2c1651fea4d212:api_token -X GET "https://api.track.toggl.com/reports/api/v2/summary?workspace_id=123&since=2013-05-19&until=2013-05-20&user_agent=api_test"
 ```
 
 
